@@ -21,20 +21,11 @@ Requires: libfusn = %{version}-%{release}
 %description devel
 Header files and libraries for developing applications for libfusn.
 
-%package python
-Summary: Python bindings for libfusn
-Group: System Environment/Libraries
-Requires: libfusn = %{version}-%{release} python
-BuildRequires: python-devel
-
-%description python
-Python bindings for libfusn
-
 %prep
 %setup -q
 
 %build
-%configure --prefix=/usr --libdir=%{_libdir} --mandir=%{_mandir} --enable-python
+%configure --prefix=/usr --libdir=%{_libdir} --mandir=%{_mandir}
 make %{?_smp_mflags}
 
 %install
@@ -62,13 +53,6 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_libdir}/pkgconfig/libfusn.pc
 %{_includedir}/*
 %{_mandir}/man3/*
-
-%files python
-%defattr(644,root,root,755)
-%doc AUTHORS COPYING NEWS README
-%{_libdir}/python*/site-packages/*.a
-%{_libdir}/python*/site-packages/*.la
-%{_libdir}/python*/site-packages/*.so
 
 %changelog
 * @SPEC_DATE@ Joachim Metz <joachim.metz@gmail.com> @VERSION@-1
