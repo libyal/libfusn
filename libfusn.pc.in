@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libfusn
+Description: Library to access the Update Sequence Number (USN) Journal format
+Version: @VERSION@
+Libs: -L${libdir} -lfusn
+Libs.private: @ax_libcerror_pc_libs_private@ @ax_libcnotify_pc_libs_private@ @ax_libcstring_pc_libs_private@ @ax_libfdatetime_pc_libs_private@ @ax_libuna_pc_libs_private@ @ax_pthread_pc_libs_private@
+Cflags: -I${includedir}
+
