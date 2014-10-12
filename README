@@ -1,5 +1,9 @@
 libfusn is a library for Update Sequence Number (USN) Journal data types.
 
+Project information:
+* Status: experimental
+* Licence: LGPLv3+
+
 For more information see:
 * Project documentation: https://github.com/libyal/libfusn/wiki/Home
 * How to build from source: https://github.com/libyal/libfusn/wiki/Building
