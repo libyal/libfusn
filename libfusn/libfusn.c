@@ -1,5 +1,5 @@
 /*
- * Library to access the Windows Property Store format
+ * Library to access the Update Sequence Number (USN) Journal format
  *
  * Copyright (c) 2011-2014, Joachim Metz <joachim.metz@gmail.com>
  *
