@@ -104,7 +104,6 @@ stamp-h1
 /include/libfusn/types.h
 /libfusn/libfusn.rc
 /libfusn/libfusn_definitions.h
-/pyfwps/setup.py
 /tests/tmp
 
 # Local library dependencies specific files
