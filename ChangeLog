@@ -1,4 +1,5 @@
 TODO
+* expose libfusn_record_read in API
 * update libfusn.3 man page
 
 20141021
