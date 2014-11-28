@@ -36,16 +36,16 @@
 #else
 #include <byte_stream.h>
 
-#define LIBFUSN_VERSION					@VERSION@
+#define LIBFUSN_VERSION						@VERSION@
 
 /* The version string
  */
-#define LIBFUSN_VERSION_STRING				"@VERSION@"
+#define LIBFUSN_VERSION_STRING					"@VERSION@"
 
 /* The byte order definitions
  */
-#define LIBFUSN_ENDIAN_BIG				_BYTE_STREAM_ENDIAN_BIG
-#define LIBFUSN_ENDIAN_LITTLE				_BYTE_STREAM_ENDIAN_LITTLE
+#define LIBFUSN_ENDIAN_BIG					_BYTE_STREAM_ENDIAN_BIG
+#define LIBFUSN_ENDIAN_LITTLE					_BYTE_STREAM_ENDIAN_LITTLE
 
 /* The update reason flags
  */

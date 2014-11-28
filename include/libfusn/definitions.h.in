@@ -24,18 +24,18 @@
 
 #include <libfusn/types.h>
 
-#define LIBFUSN_VERSION					@VERSION@
+#define LIBFUSN_VERSION						@VERSION@
 
 /* The version string
  */
-#define LIBFUSN_VERSION_STRING				"@VERSION@"
+#define LIBFUSN_VERSION_STRING					"@VERSION@"
 
 /* The byte order definitions
  */
 enum LIBFUSN_ENDIAN
 {
-	LIBFUSN_ENDIAN_BIG				= (int) 'b',
-	LIBFUSN_ENDIAN_LITTLE				= (int) 'l'
+	LIBFUSN_ENDIAN_BIG					= (int) 'b',
+	LIBFUSN_ENDIAN_LITTLE					= (int) 'l'
 };
 
 /* The update reason flags
