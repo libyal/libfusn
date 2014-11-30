@@ -34,14 +34,14 @@
 /* The following type definitions hide internal data structures
  */
 #if defined( HAVE_DEBUG_OUTPUT ) && !defined( WINAPI )
-typedef struct libfusn_record {}		libfusn_record_t;
+typedef struct libfusn_record {}	libfusn_record_t;
 
 #else
 typedef intptr_t libfusn_record_t;
 
 #endif
 
-#endif
+#endif /* defined( HAVE_LOCAL_LIBFUSN ) */
 
 #endif
 
