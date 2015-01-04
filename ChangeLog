@@ -1,6 +1,8 @@
 TODO
 * expose libfusn_record_read in API
-* update libfusn.3 man page
+
+20150104
+* 2015 update
 
 20141021
 * worked on stand-alone version
