@@ -137,21 +137,16 @@ void libfusn_debug_print_update_reason_flags(
 		libcnotify_printf(
 		 "\t(USN_REASON_STREAM_CHANGE)\n" );
 	}
-	if( ( update_reason_flags & LIBFUSN_UPDATE_REASON_FLAG_UKNOWN_0x00400000 ) != 0 )
+	if( ( update_reason_flags & LIBFUSN_UPDATE_REASON_TRANSACTED_CHANGE ) != 0 )
 	{
 		libcnotify_printf(
-		 "\tUnknown 0x00400000\n" );
+		 "\t(USN_REASON_TRANSACTED_CHANGE)\n" );
 	}
+
 	if( ( update_reason_flags & LIBFUSN_UPDATE_REASON_FLAG_CLOSE ) != 0 )
 	{
 		libcnotify_printf(
 		 "\t(USN_REASON_CLOSE)\n" );
-	}
-
-	if( ( update_reason_flags & LIBFUSN_UPDATE_REASON_FLAG_UKNOWN_0x80000000 ) != 0 )
-	{
-		libcnotify_printf(
-		 "\tUnknown 0x80000000\n" );
 	}
 }
 
