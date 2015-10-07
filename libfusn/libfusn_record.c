@@ -443,8 +443,17 @@ int libfusn_record_copy_from_byte_stream(
 #endif
 	byte_stream_offset = sizeof( fusn_record_header_t );
 
-/* TODO add version check */
+	if( internal_record->major_version != 2 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported major version.",
+		 function );
 
+		goto on_error;
+	}
 	if( ( (size_t) internal_record->size < sizeof( fusn_record_header_t ) )
 	 || ( (size_t) internal_record->size > byte_stream_size ) )
 	{
