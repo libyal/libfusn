@@ -1,13 +1,13 @@
 include_HEADERS = \
-        libfusn.h
+	libfusn.h
 
 pkginclude_HEADERS = \
-        libfusn/codepage.h \
-        libfusn/definitions.h \
-        libfusn/error.h \
-        libfusn/extern.h \
-        libfusn/features.h \
-        libfusn/types.h
+	libfusn/codepage.h \
+	libfusn/definitions.h \
+	libfusn/error.h \
+	libfusn/extern.h \
+	libfusn/features.h \
+	libfusn/types.h
 
 EXTRA_DIST = \
 	libfusn.h.in \
