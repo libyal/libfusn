@@ -1,4 +1,5 @@
 MSVSCPP_FILES = \
+	fusn_test_get_version/fusn_test_get_version.vcproj \
 	libcerror/libcerror.vcproj \
 	libcnotify/libcnotify.vcproj \
 	libcstring/libcstring.vcproj \
