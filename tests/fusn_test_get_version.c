@@ -46,7 +46,7 @@ int fusn_test_get_version(
 	          LIBFUSN_VERSION_STRING,
 	          9 );
 
-	FUSN_TEST_ASSERT_EQUAL(
+	FUSN_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );

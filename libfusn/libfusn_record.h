@@ -181,5 +181,5 @@ int libfusn_record_get_utf16_name(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFUSN_INTERNAL_RECORD_H ) */
 
