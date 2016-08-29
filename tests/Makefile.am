@@ -16,12 +16,25 @@ EXTRA_DIST = \
 	$(check_SCRIPTS)
 
 check_PROGRAMS = \
+	fusn_test_error \
 	fusn_test_get_version
+
+fusn_test_error_SOURCES = \
+	fusn_test_error.c \
+	fusn_test_libcstring.h \
+	fusn_test_libfusn.h \
+	fusn_test_macros.h \
+	fusn_test_unused.h
+
+fusn_test_error_LDADD = \
+	../libfusn/libfusn.la \
+	@LIBCSTRING_LIBADD@
 
 fusn_test_get_version_SOURCES = \
 	fusn_test_get_version.c \
 	fusn_test_libcstring.h \
 	fusn_test_libfusn.h \
+	fusn_test_macros.h \
 	fusn_test_unused.h
 
 fusn_test_get_version_LDADD = \
