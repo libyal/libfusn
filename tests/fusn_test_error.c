@@ -123,23 +123,23 @@ int main(
 
 	FUSN_TEST_RUN(
 	 "libfusn_error_free",
-	 fusn_test_error_free() )
+	 fusn_test_error_free );
 
 	FUSN_TEST_RUN(
 	 "libfusn_error_fprint",
-	 fusn_test_error_fprint() )
+	 fusn_test_error_fprint );
 
 	FUSN_TEST_RUN(
 	 "libfusn_error_sprint",
-	 fusn_test_error_sprint() )
+	 fusn_test_error_sprint );
 
 	FUSN_TEST_RUN(
 	 "libfusn_error_backtrace_fprint",
-	 fusn_test_error_backtrace_fprint() )
+	 fusn_test_error_backtrace_fprint );
 
 	FUSN_TEST_RUN(
 	 "libfusn_error_backtrace_sprint",
-	 fusn_test_error_backtrace_sprint() )
+	 fusn_test_error_backtrace_sprint );
 
 	return( EXIT_SUCCESS );
 

@@ -21,6 +21,7 @@ MAINTAINERCLEANFILES = \
 distclean: clean
 	/bin/rm -f libfusn.h
 	/bin/rm -f libfusn/definitions.h
+	/bin/rm -f libfusn/features.h
 	/bin/rm -f libfusn/types.h
 	/bin/rm -f Makefile
 

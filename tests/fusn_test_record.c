@@ -20,14 +20,16 @@
  */
 
 #include <common.h>
+#include <file_stream.h>
+#include <types.h>
 
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
 #include <stdlib.h>
 #endif
 
-#include "fusn_test_libfusn.h"
 #include "fusn_test_libcerror.h"
 #include "fusn_test_libcstring.h"
+#include "fusn_test_libfusn.h"
 #include "fusn_test_macros.h"
 #include "fusn_test_memory.h"
 #include "fusn_test_unused.h"
@@ -38,11 +40,11 @@
 int fusn_test_record_initialize(
      void )
 {
-	libfusn_record_t *record = NULL;
 	libcerror_error_t *error = NULL;
+	libfusn_record_t *record = NULL;
 	int result               = 0;
 
-	/* Test libfusn_record_initialize without entries
+	/* Test libfusn_record_initialize
 	 */
 	result = libfusn_record_initialize(
 	          &record,
@@ -129,6 +131,13 @@ int fusn_test_record_initialize(
 	if( fusn_test_malloc_attempts_before_fail != -1 )
 	{
 		fusn_test_malloc_attempts_before_fail = -1;
+
+		if( record != NULL )
+		{
+			libfusn_record_free(
+			 &record,
+			 NULL );
+		}
 	}
 	else
 	{
@@ -159,6 +168,13 @@ int fusn_test_record_initialize(
 	if( fusn_test_memset_attempts_before_fail != -1 )
 	{
 		fusn_test_memset_attempts_before_fail = -1;
+
+		if( record != NULL )
+		{
+			libfusn_record_free(
+			 &record,
+			 NULL );
+		}
 	}
 	else
 	{
@@ -252,11 +268,11 @@ int main(
 
 	FUSN_TEST_RUN(
 	 "libfusn_record_initialize",
-	 fusn_test_record_initialize() )
+	 fusn_test_record_initialize );
 
 	FUSN_TEST_RUN(
 	 "libfusn_record_free",
-	 fusn_test_record_free() )
+	 fusn_test_record_free );
 
 	/* TODO: add test for libfusn_record_copy_from_byte_stream */
 	/* TODO: add test for libfusn_record_get_size */

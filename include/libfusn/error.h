@@ -287,5 +287,5 @@ enum LIBFUSN_OUTPUT_ERROR
 	LIBFUSN_OUTPUT_ERROR_INSUFFICIENT_SPACE		= 1
 };
 
-#endif
+#endif /* !defined( _LIBFUSN_ERROR_H ) */
 

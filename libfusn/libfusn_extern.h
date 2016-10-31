@@ -38,10 +38,9 @@
 #include <libfusn/extern.h>
 
 #else
-
 #define LIBFUSN_EXTERN	extern
 
 #endif
 
-#endif
+#endif /* !defined( _LIBFUSN_INTERNAL_EXTERN_H ) */
 
