@@ -120,8 +120,8 @@ stamp-h[1-9]
 /libfusn/libfusn.rc
 /libfusn/libfusn_definitions.h
 /tests/fusn_test_error
-/tests/fusn_test_get_version
 /tests/fusn_test_record
+/tests/fusn_test_support
 /tests/tmp*
 
 # Local library dependencies specific files
