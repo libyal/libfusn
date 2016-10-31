@@ -43,5 +43,5 @@ const char *libfusn_get_version(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFUSN_SUPPORT_H ) */
 

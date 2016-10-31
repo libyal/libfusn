@@ -104,5 +104,5 @@ struct fusn_record_header
 }
 #endif
 
-#endif
+#endif /* !defined( _FUSN_RECORD_H ) */
 

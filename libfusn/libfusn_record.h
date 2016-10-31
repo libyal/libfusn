@@ -19,8 +19,8 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBFUSN_INTERNAL_RECORD_H )
-#define _LIBFUSN_INTERNAL_RECORD_H
+#if !defined( _LIBFUSN_RECORD_H )
+#define _LIBFUSN_RECORD_H
 
 #include <common.h>
 #include <types.h>
@@ -181,5 +181,5 @@ int libfusn_record_get_utf16_name(
 }
 #endif
 
-#endif /* !defined( _LIBFUSN_INTERNAL_RECORD_H ) */
+#endif /* !defined( _LIBFUSN_RECORD_H ) */
 
