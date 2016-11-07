@@ -39,7 +39,7 @@ enum LIBFUSN_ERROR_DOMAINS
 	LIBFUSN_ERROR_DOMAIN_INPUT			= (int) 'i',
 	LIBFUSN_ERROR_DOMAIN_MEMORY			= (int) 'm',
 	LIBFUSN_ERROR_DOMAIN_OUTPUT			= (int) 'o',
-	LIBFUSN_ERROR_DOMAIN_RUNTIME			= (int) 'r',
+	LIBFUSN_ERROR_DOMAIN_RUNTIME			= (int) 'r'
 };
 
 /* The argument error codes
@@ -208,6 +208,17 @@ enum LIBFUSN_MEMORY_ERROR
 	LIBFUSN_MEMORY_ERROR_SET_FAILED			= 3
 };
 
+/* The output error codes
+ */
+enum LIBFUSN_OUTPUT_ERROR
+{
+	LIBFUSN_OUTPUT_ERROR_GENERIC			= 0,
+
+	/* There is insuficient space to write the output
+	 */
+	LIBFUSN_OUTPUT_ERROR_INSUFFICIENT_SPACE		= 1
+};
+
 /* The runtime error codes
  * to signify errors regarding runtime processing
  */
@@ -274,17 +285,6 @@ enum LIBFUSN_RUNTIME_ERROR
 	/* An abort was requested
 	 */
 	LIBFUSN_RUNTIME_ERROR_ABORT_REQUESTED		= 15
-};
-
-/* The output error codes
- */
-enum LIBFUSN_OUTPUT_ERROR
-{
-	LIBFUSN_OUTPUT_ERROR_GENERIC			= 0,
-
-	/* There is insuficient space to write the output
-	 */
-	LIBFUSN_OUTPUT_ERROR_INSUFFICIENT_SPACE		= 1
 };
 
 #endif /* !defined( _LIBFUSN_ERROR_H ) */

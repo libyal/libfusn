@@ -1,7 +1,6 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
-	@LIBCSTRING_CPPFLAGS@ \
 	@LIBCERROR_CPPFLAGS@ \
 	@LIBCNOTIFY_CPPFLAGS@ \
 	@LIBUNA_CPPFLAGS@ \
@@ -18,7 +17,6 @@ libfusn_la_SOURCES = \
 	libfusn_error.c libfusn_error.h \
 	libfusn_libcerror.h \
 	libfusn_libcnotify.h \
-	libfusn_libcstring.h \
 	libfusn_libfdatetime.h \
 	libfusn_libuna.h \
 	libfusn_record.c libfusn_record.h \
@@ -27,7 +25,6 @@ libfusn_la_SOURCES = \
 	libfusn_unused.h
 
 libfusn_la_LIBADD = \
-	@LIBCSTRING_LIBADD@ \
 	@LIBCERROR_LIBADD@ \
 	@LIBCNOTIFY_LIBADD@ \
 	@LIBUNA_LIBADD@ \

@@ -22,12 +22,14 @@
 #include <common.h>
 #include <byte_stream.h>
 #include <memory.h>
+#include <narrow_string.h>
+#include <system_string.h>
 #include <types.h>
+#include <wide_string.h>
 
 #include "libfusn_debug.h"
 #include "libfusn_libcerror.h"
 #include "libfusn_libcnotify.h"
-#include "libfusn_libcstring.h"
 #include "libfusn_libfdatetime.h"
 #include "libfusn_libuna.h"
 #include "libfusn_record.h"
@@ -154,20 +156,20 @@ int libfusn_record_copy_from_byte_stream(
      size_t byte_stream_size,
      libcerror_error_t **error )
 {
-	libfusn_internal_record_t *internal_record  = NULL;
-	static char *function                       = "libfusn_record_copy_from_byte_stream";
-	size_t byte_stream_offset                   = 0;
-	uint16_t name_offset                        = 0;
-	uint16_t name_size                          = 0;
+	libfusn_internal_record_t *internal_record = NULL;
+	static char *function                      = "libfusn_record_copy_from_byte_stream";
+	size_t byte_stream_offset                  = 0;
+	uint16_t name_offset                       = 0;
+	uint16_t name_size                         = 0;
 
 #if defined( HAVE_DEBUG_OUTPUT )
-	libcstring_system_character_t date_time_string[ 32 ];
+	system_character_t date_time_string[ 32 ];
 
-	libcstring_system_character_t *value_string = NULL;
-	libfdatetime_filetime_t *filetime           = NULL;
-	size_t value_string_size                    = 0;
-	uint32_t value_32bit                        = 0;
-	int result                                  = 0;
+	system_character_t *value_string           = NULL;
+	libfdatetime_filetime_t *filetime          = NULL;
+	size_t value_string_size                   = 0;
+	uint32_t value_32bit                       = 0;
+	int result                                 = 0;
 #endif
 
 	if( record == NULL )
@@ -351,7 +353,7 @@ int libfusn_record_copy_from_byte_stream(
 
 			goto on_error;
 		}
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 		result = libfdatetime_filetime_copy_to_utf16_string(
 		          filetime,
 		          (uint16_t *) date_time_string,
@@ -378,7 +380,7 @@ int libfusn_record_copy_from_byte_stream(
 			goto on_error;
 		}
 		libcnotify_printf(
-		 "%s: update time\t\t\t: %" PRIs_LIBCSTRING_SYSTEM " UTC\n",
+		 "%s: update time\t\t\t: %" PRIs_SYSTEM " UTC\n",
 		 function,
 		 date_time_string );
 
@@ -553,7 +555,7 @@ int libfusn_record_copy_from_byte_stream(
 #if defined( HAVE_DEBUG_OUTPUT )
 		if( libcnotify_verbose != 0 )
 		{
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 			result = libuna_utf16_string_size_from_utf16_stream(
 				  internal_record->name,
 				  internal_record->name_size,
@@ -579,7 +581,7 @@ int libfusn_record_copy_from_byte_stream(
 
 				goto on_error;
 			}
-			value_string = libcstring_system_string_allocate(
+			value_string = system_string_allocate(
 			                value_string_size );
 
 			if( value_string == NULL )
@@ -593,7 +595,7 @@ int libfusn_record_copy_from_byte_stream(
 
 				goto on_error;
 			}
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 			result = libuna_utf16_string_copy_from_utf16_stream(
 				  (libuna_utf16_character_t *) value_string,
 				  value_string_size,
@@ -622,7 +624,7 @@ int libfusn_record_copy_from_byte_stream(
 				goto on_error;
 			}
 			libcnotify_printf(
-			 "%s: name\t\t\t\t: %" PRIs_LIBCSTRING_SYSTEM "\n",
+			 "%s: name\t\t\t\t: %" PRIs_SYSTEM "\n",
 			 function,
 			 value_string );
 

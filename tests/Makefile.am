@@ -1,7 +1,6 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
-	@LIBCSTRING_CPPFLAGS@ \
 	@LIBCERROR_CPPFLAGS@ \
 	@LIBFUSN_DLL_IMPORT@
 
@@ -24,18 +23,15 @@ check_PROGRAMS = \
 
 fusn_test_error_SOURCES = \
 	fusn_test_error.c \
-	fusn_test_libcstring.h \
 	fusn_test_libfusn.h \
 	fusn_test_macros.h \
 	fusn_test_unused.h
 
 fusn_test_error_LDADD = \
-	../libfusn/libfusn.la \
-	@LIBCSTRING_LIBADD@
+	../libfusn/libfusn.la
 
 fusn_test_record_SOURCES = \
 	fusn_test_record.c \
-	fusn_test_libcstring.h \
 	fusn_test_libfusn.h \
 	fusn_test_macros.h \
 	fusn_test_memory.c fusn_test_memory.h \
@@ -43,19 +39,16 @@ fusn_test_record_SOURCES = \
 
 fusn_test_record_LDADD = \
 	../libfusn/libfusn.la \
-	@LIBCERROR_LIBADD@ \
-	@LIBCSTRING_LIBADD@
+	@LIBCERROR_LIBADD@
 
 fusn_test_support_SOURCES = \
-	fusn_test_libcstring.h \
 	fusn_test_libfusn.h \
 	fusn_test_macros.h \
 	fusn_test_support.c \
 	fusn_test_unused.h
 
 fusn_test_support_LDADD = \
-	../libfusn/libfusn.la \
-	@LIBCSTRING_LIBADD@
+	../libfusn/libfusn.la
 
 MAINTAINERCLEANFILES = \
 	Makefile.in

@@ -28,7 +28,6 @@
 #endif
 
 #include "fusn_test_libcerror.h"
-#include "fusn_test_libcstring.h"
 #include "fusn_test_libfusn.h"
 #include "fusn_test_macros.h"
 #include "fusn_test_memory.h"
@@ -2036,7 +2035,7 @@ on_error:
 
 /* The main program
  */
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 int wmain(
      int argc FUSN_TEST_ATTRIBUTE_UNUSED,
      wchar_t * const argv[] FUSN_TEST_ATTRIBUTE_UNUSED )

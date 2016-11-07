@@ -4,7 +4,6 @@ MSVSCPP_FILES = \
 	fusn_test_support/fusn_test_support.vcproj \
 	libcerror/libcerror.vcproj \
 	libcnotify/libcnotify.vcproj \
-	libcstring/libcstring.vcproj \
 	libfdatetime/libfdatetime.vcproj \
 	libfusn/libfusn.vcproj \
 	libuna/libuna.vcproj \
