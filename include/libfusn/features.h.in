@@ -24,10 +24,6 @@
 
 /* The libfusn type support features
  */
-#if defined( WINAPI ) || @HAVE_WIDE_CHARACTER_TYPE@
-#define LIBFUSN_HAVE_WIDE_CHARACTER_TYPE	1
-#endif
-
 #if !defined( LIBFUSN_DEPRECATED )
 #if defined( __GNUC__ ) && __GNUC__ >= 3
 #define LIBFUSN_DEPRECATED	__attribute__ ((__deprecated__))

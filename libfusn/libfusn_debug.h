@@ -48,5 +48,5 @@ void libfusn_debug_print_file_attribute_flags(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFUSN_DEBUG_H ) */
 

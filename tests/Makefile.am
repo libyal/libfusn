@@ -2,6 +2,9 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
 	@LIBCERROR_CPPFLAGS@ \
+	@LIBCNOTIFY_CPPFLAGS@ \
+	@LIBUNA_CPPFLAGS@ \
+	@LIBFDATETIME_CPPFLAGS@ \
 	@LIBFUSN_DLL_IMPORT@
 
 TESTS = \
@@ -31,10 +34,11 @@ fusn_test_error_LDADD = \
 	../libfusn/libfusn.la
 
 fusn_test_record_SOURCES = \
-	fusn_test_record.c \
+	fusn_test_libcerror.h \
 	fusn_test_libfusn.h \
 	fusn_test_macros.h \
 	fusn_test_memory.c fusn_test_memory.h \
+	fusn_test_record.c \
 	fusn_test_unused.h
 
 fusn_test_record_LDADD = \
