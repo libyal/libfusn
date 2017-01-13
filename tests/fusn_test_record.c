@@ -1,7 +1,7 @@
 /*
- * Library record type testing program
+ * Library record type test program
  *
- * Copyright (C) 2011-2016, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2011-2017, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -46,11 +46,17 @@ uint8_t fusn_test_record_byte_stream[ 80 ] = {
 int fusn_test_record_initialize(
      void )
 {
-	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
-	int result               = 0;
+	libcerror_error_t *error        = NULL;
+	libfusn_record_t *record        = NULL;
+	int result                      = 0;
 
-	/* Test libfusn_record_initialize
+#if defined( HAVE_FUSN_TEST_MEMORY )
+	int number_of_malloc_fail_tests = 1;
+	int number_of_memset_fail_tests = 1;
+	int test_number                 = 0;
+#endif
+
+	/* Test regular cases
 	 */
 	result = libfusn_record_initialize(
 	          &record,
@@ -126,79 +132,89 @@ int fusn_test_record_initialize(
 
 #if defined( HAVE_FUSN_TEST_MEMORY )
 
-	/* Test libfusn_record_initialize with malloc failing
-	 */
-	fusn_test_malloc_attempts_before_fail = 0;
-
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	if( fusn_test_malloc_attempts_before_fail != -1 )
+	for( test_number = 0;
+	     test_number < number_of_malloc_fail_tests;
+	     test_number++ )
 	{
-		fusn_test_malloc_attempts_before_fail = -1;
+		/* Test libfusn_record_initialize with malloc failing
+		 */
+		fusn_test_malloc_attempts_before_fail = test_number;
 
-		if( record != NULL )
+		result = libfusn_record_initialize(
+		          &record,
+		          &error );
+
+		if( fusn_test_malloc_attempts_before_fail != -1 )
 		{
-			libfusn_record_free(
-			 &record,
-			 NULL );
+			fusn_test_malloc_attempts_before_fail = -1;
+
+			if( record != NULL )
+			{
+				libfusn_record_free(
+				 &record,
+				 NULL );
+			}
+		}
+		else
+		{
+			FUSN_TEST_ASSERT_EQUAL_INT(
+			 "result",
+			 result,
+			 -1 );
+
+			FUSN_TEST_ASSERT_IS_NULL(
+			 "record",
+			 record );
+
+			FUSN_TEST_ASSERT_IS_NOT_NULL(
+			 "error",
+			 error );
+
+			libcerror_error_free(
+			 &error );
 		}
 	}
-	else
+	for( test_number = 0;
+	     test_number < number_of_memset_fail_tests;
+	     test_number++ )
 	{
-		FUSN_TEST_ASSERT_EQUAL_INT(
-		 "result",
-		 result,
-		 -1 );
+		/* Test libfusn_record_initialize with memset failing
+		 */
+		fusn_test_memset_attempts_before_fail = test_number;
 
-		FUSN_TEST_ASSERT_IS_NULL(
-		 "record",
-		 record );
+		result = libfusn_record_initialize(
+		          &record,
+		          &error );
 
-		FUSN_TEST_ASSERT_IS_NOT_NULL(
-		 "error",
-		 error );
-
-		libcerror_error_free(
-		 &error );
-	}
-	/* Test libfusn_record_initialize with memset failing
-	 */
-	fusn_test_memset_attempts_before_fail = 0;
-
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	if( fusn_test_memset_attempts_before_fail != -1 )
-	{
-		fusn_test_memset_attempts_before_fail = -1;
-
-		if( record != NULL )
+		if( fusn_test_memset_attempts_before_fail != -1 )
 		{
-			libfusn_record_free(
-			 &record,
-			 NULL );
+			fusn_test_memset_attempts_before_fail = -1;
+
+			if( record != NULL )
+			{
+				libfusn_record_free(
+				 &record,
+				 NULL );
+			}
 		}
-	}
-	else
-	{
-		FUSN_TEST_ASSERT_EQUAL_INT(
-		 "result",
-		 result,
-		 -1 );
+		else
+		{
+			FUSN_TEST_ASSERT_EQUAL_INT(
+			 "result",
+			 result,
+			 -1 );
 
-		FUSN_TEST_ASSERT_IS_NULL(
-		 "record",
-		 record );
+			FUSN_TEST_ASSERT_IS_NULL(
+			 "record",
+			 record );
 
-		FUSN_TEST_ASSERT_IS_NOT_NULL(
-		 "error",
-		 error );
+			FUSN_TEST_ASSERT_IS_NOT_NULL(
+			 "error",
+			 error );
 
-		libcerror_error_free(
-		 &error );
+			libcerror_error_free(
+			 &error );
+		}
 	}
 #endif /* defined( HAVE_FUSN_TEST_MEMORY ) */
 
