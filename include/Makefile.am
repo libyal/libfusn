@@ -2,6 +2,7 @@ include_HEADERS = \
 	libfusn.h
 
 pkginclude_HEADERS = \
+	libfusn/codepage.h \
 	libfusn/definitions.h \
 	libfusn/error.h \
 	libfusn/extern.h \
