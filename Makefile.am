@@ -19,10 +19,9 @@ DPKG_FILES = \
 	dpkg/compat \
 	dpkg/control \
 	dpkg/copyright \
-	dpkg/copyright.in \
 	dpkg/rules \
-	dpkg/libfusn-dev.docs \
-	dpkg/libfusn.docs \
+	dpkg/libfusn-dev.install \
+	dpkg/libfusn.install \
 	dpkg/source/format
 
 GETTEXT_FILES = \
