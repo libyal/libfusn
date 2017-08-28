@@ -67,13 +67,13 @@ int fusn_test_record_initialize(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_free(
 	          &record,
@@ -84,13 +84,13 @@ int fusn_test_record_initialize(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -103,9 +103,9 @@ int fusn_test_record_initialize(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -121,9 +121,9 @@ int fusn_test_record_initialize(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -255,9 +255,9 @@ int fusn_test_record_free(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -294,13 +294,13 @@ int fusn_test_record_copy_from_byte_stream(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test to copy security descriptor from byte stream
 	 */
@@ -315,9 +315,9 @@ int fusn_test_record_copy_from_byte_stream(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -332,9 +332,9 @@ int fusn_test_record_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -350,9 +350,9 @@ int fusn_test_record_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -368,9 +368,9 @@ int fusn_test_record_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -383,9 +383,9 @@ int fusn_test_record_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -398,9 +398,9 @@ int fusn_test_record_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -416,13 +416,13 @@ int fusn_test_record_copy_from_byte_stream(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -463,13 +463,13 @@ int fusn_test_record_get_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -482,9 +482,9 @@ int fusn_test_record_get_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve size
 	 */
@@ -498,9 +498,9 @@ int fusn_test_record_get_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -514,9 +514,9 @@ int fusn_test_record_get_size(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -531,9 +531,9 @@ int fusn_test_record_get_size(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -549,13 +549,13 @@ int fusn_test_record_get_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -596,13 +596,13 @@ int fusn_test_record_get_update_time(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -615,9 +615,9 @@ int fusn_test_record_get_update_time(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve update time
 	 */
@@ -631,9 +631,9 @@ int fusn_test_record_get_update_time(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -647,9 +647,9 @@ int fusn_test_record_get_update_time(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -664,9 +664,9 @@ int fusn_test_record_get_update_time(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -682,13 +682,13 @@ int fusn_test_record_get_update_time(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -729,13 +729,13 @@ int fusn_test_record_get_file_reference(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -748,9 +748,9 @@ int fusn_test_record_get_file_reference(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve file reference
 	 */
@@ -764,9 +764,9 @@ int fusn_test_record_get_file_reference(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -780,9 +780,9 @@ int fusn_test_record_get_file_reference(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -797,9 +797,9 @@ int fusn_test_record_get_file_reference(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -815,13 +815,13 @@ int fusn_test_record_get_file_reference(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -862,13 +862,13 @@ int fusn_test_record_get_parent_file_reference(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -881,9 +881,9 @@ int fusn_test_record_get_parent_file_reference(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve parent file reference
 	 */
@@ -897,9 +897,9 @@ int fusn_test_record_get_parent_file_reference(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -913,9 +913,9 @@ int fusn_test_record_get_parent_file_reference(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -930,9 +930,9 @@ int fusn_test_record_get_parent_file_reference(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -948,13 +948,13 @@ int fusn_test_record_get_parent_file_reference(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -995,13 +995,13 @@ int fusn_test_record_get_update_sequence_number(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -1014,9 +1014,9 @@ int fusn_test_record_get_update_sequence_number(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve update sequence number
 	 */
@@ -1030,9 +1030,9 @@ int fusn_test_record_get_update_sequence_number(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1046,9 +1046,9 @@ int fusn_test_record_get_update_sequence_number(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1063,9 +1063,9 @@ int fusn_test_record_get_update_sequence_number(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1081,13 +1081,13 @@ int fusn_test_record_get_update_sequence_number(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1128,13 +1128,13 @@ int fusn_test_record_get_update_reason_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -1147,9 +1147,9 @@ int fusn_test_record_get_update_reason_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve update reason flags
 	 */
@@ -1163,9 +1163,9 @@ int fusn_test_record_get_update_reason_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1179,9 +1179,9 @@ int fusn_test_record_get_update_reason_flags(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1196,9 +1196,9 @@ int fusn_test_record_get_update_reason_flags(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1214,13 +1214,13 @@ int fusn_test_record_get_update_reason_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1261,13 +1261,13 @@ int fusn_test_record_get_update_source_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -1280,9 +1280,9 @@ int fusn_test_record_get_update_source_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve update source flags
 	 */
@@ -1296,9 +1296,9 @@ int fusn_test_record_get_update_source_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1312,9 +1312,9 @@ int fusn_test_record_get_update_source_flags(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1329,9 +1329,9 @@ int fusn_test_record_get_update_source_flags(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1347,13 +1347,13 @@ int fusn_test_record_get_update_source_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1394,13 +1394,13 @@ int fusn_test_record_get_file_attribute_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -1413,9 +1413,9 @@ int fusn_test_record_get_file_attribute_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve file attribute flags
 	 */
@@ -1429,9 +1429,9 @@ int fusn_test_record_get_file_attribute_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1445,9 +1445,9 @@ int fusn_test_record_get_file_attribute_flags(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1462,9 +1462,9 @@ int fusn_test_record_get_file_attribute_flags(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1480,13 +1480,13 @@ int fusn_test_record_get_file_attribute_flags(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1527,13 +1527,13 @@ int fusn_test_record_get_utf8_name_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -1546,9 +1546,9 @@ int fusn_test_record_get_utf8_name_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve UTF-8 string size
 	 */
@@ -1562,9 +1562,9 @@ int fusn_test_record_get_utf8_name_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1578,9 +1578,9 @@ int fusn_test_record_get_utf8_name_size(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1595,9 +1595,9 @@ int fusn_test_record_get_utf8_name_size(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1613,13 +1613,13 @@ int fusn_test_record_get_utf8_name_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1661,13 +1661,13 @@ int fusn_test_record_get_utf8_name(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -1680,9 +1680,9 @@ int fusn_test_record_get_utf8_name(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve UTF-8 string size
 	 */
@@ -1697,9 +1697,9 @@ int fusn_test_record_get_utf8_name(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1714,9 +1714,9 @@ int fusn_test_record_get_utf8_name(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1732,9 +1732,9 @@ int fusn_test_record_get_utf8_name(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1752,13 +1752,13 @@ int fusn_test_record_get_utf8_name(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1799,13 +1799,13 @@ int fusn_test_record_get_utf16_name_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -1818,9 +1818,9 @@ int fusn_test_record_get_utf16_name_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve UTF-16 string size
 	 */
@@ -1834,9 +1834,9 @@ int fusn_test_record_get_utf16_name_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1850,9 +1850,9 @@ int fusn_test_record_get_utf16_name_size(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1867,9 +1867,9 @@ int fusn_test_record_get_utf16_name_size(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1885,13 +1885,13 @@ int fusn_test_record_get_utf16_name_size(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1933,13 +1933,13 @@ int fusn_test_record_get_utf16_name(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
@@ -1952,9 +1952,9 @@ int fusn_test_record_get_utf16_name(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test retrieve UTF-16 string size
 	 */
@@ -1969,9 +1969,9 @@ int fusn_test_record_get_utf16_name(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1986,9 +1986,9 @@ int fusn_test_record_get_utf16_name(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -2004,9 +2004,9 @@ int fusn_test_record_get_utf16_name(
 	 result,
 	 -1 );
 
-        FUSN_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -2024,13 +2024,13 @@ int fusn_test_record_get_utf16_name(
 	 result,
 	 1 );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "record",
-         record );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
 
-        FUSN_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
