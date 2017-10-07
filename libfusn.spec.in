@@ -5,13 +5,13 @@ Summary: Library to access the Update Sequence Number (USN) Journal format
 Group: System Environment/Libraries
 License: LGPL
 Source: %{name}-%{version}.tar.gz
-URL: https://github.com/libyal/libfusn/
+URL: https://github.com/libyal/libfusn
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-@libfusn_spec_requires@ @ax_libcdata_spec_requires@ @ax_libcerror_spec_requires@ @ax_libcnotify_spec_requires@ @ax_libcthreads_spec_requires@ @ax_libfdatetime_spec_requires@ @ax_libuna_spec_requires@
-@libfusn_spec_build_requires@ @ax_libcdata_spec_build_requires@ @ax_libcerror_spec_build_requires@ @ax_libcnotify_spec_build_requires@ @ax_libcthreads_spec_build_requires@ @ax_libfdatetime_spec_build_requires@ @ax_libuna_spec_build_requires@
+@libfusn_spec_requires@ @ax_libcerror_spec_requires@ @ax_libcnotify_spec_requires@ @ax_libfdatetime_spec_requires@ @ax_libuna_spec_requires@
+@libfusn_spec_build_requires@ @ax_libcerror_spec_build_requires@ @ax_libcnotify_spec_build_requires@ @ax_libfdatetime_spec_build_requires@ @ax_libuna_spec_build_requires@
 
 %description
-libfusn is a library to access the Update Sequence Number (USN) Journal format
+Library to access the Update Sequence Number (USN) Journal format
 
 %package devel
 Summary: Header files and libraries for developing applications for libfusn
