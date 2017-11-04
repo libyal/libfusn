@@ -33,7 +33,7 @@
 #include "fusn_test_memory.h"
 #include "fusn_test_unused.h"
 
-uint8_t fusn_test_record_byte_stream[ 80 ] = {
+uint8_t fusn_test_record_data1[ 80 ] = {
 	0x50, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x1e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00,
 	0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, 0x00, 0x50, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x8a, 0x5b, 0x3a, 0x41, 0xb4, 0x2b, 0xd1, 0x01, 0x00, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -302,11 +302,11 @@ int fusn_test_record_copy_from_byte_stream(
 	 "error",
 	 error );
 
-	/* Test to copy security descriptor from byte stream
+	/* Test regular cases
 	 */
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
-	          fusn_test_record_byte_stream,
+	          fusn_test_record_data1,
 	          80,
 	          &error );
 
@@ -323,7 +323,7 @@ int fusn_test_record_copy_from_byte_stream(
 	 */
 	result = libfusn_record_copy_from_byte_stream(
 	          NULL,
-	          fusn_test_record_byte_stream,
+	          fusn_test_record_data1,
 	          80,
 	          &error );
 
@@ -359,22 +359,7 @@ int fusn_test_record_copy_from_byte_stream(
 
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
-	          fusn_test_record_byte_stream,
-	          0,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
+	          fusn_test_record_data1,
 	          (size_t) SSIZE_MAX + 1,
 	          &error );
 
@@ -387,10 +372,31 @@ int fusn_test_record_copy_from_byte_stream(
 	 "error",
 	 error );
 
+	libcerror_error_free(
+	 &error );
+
 	result = libfusn_record_copy_from_byte_stream(
 	          record,
-	          fusn_test_record_byte_stream,
-	          60,
+	          fusn_test_record_data1,
+	          0,
+	          &error );
+
+	FUSN_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfusn_record_copy_from_byte_stream(
+	          record,
+	          fusn_test_record_data1,
+	          80 / 2,
 	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
@@ -409,7 +415,7 @@ int fusn_test_record_copy_from_byte_stream(
 	 */
 	result = libfusn_record_free(
 	          &record,
-	          NULL );
+	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -445,62 +451,30 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_size(
-     void )
+     libfusn_record_t *record )
 {
 	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
 	uint32_t size            = 0;
 	int result               = 0;
+	int size_is_set          = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve size
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_size(
 	          record,
 	          &size,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	size_is_set = result;
 
 	/* Test error cases
 	 */
@@ -521,42 +495,25 @@ int fusn_test_record_get_size(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_size(
-	          record,
-	          NULL,
-	          &error );
+	if( size_is_set != 0 )
+	{
+		result = libfusn_record_get_size(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -564,12 +521,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -578,62 +529,30 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_update_time(
-     void )
+     libfusn_record_t *record )
 {
 	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
 	uint64_t update_time     = 0;
 	int result               = 0;
+	int update_time_is_set   = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve update time
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_update_time(
 	          record,
 	          &update_time,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	update_time_is_set = result;
 
 	/* Test error cases
 	 */
@@ -654,42 +573,25 @@ int fusn_test_record_get_update_time(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_update_time(
-	          record,
-	          NULL,
-	          &error );
+	if( update_time_is_set != 0 )
+	{
+		result = libfusn_record_get_update_time(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -697,12 +599,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -711,62 +607,30 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_file_reference(
-     void )
+     libfusn_record_t *record )
 {
-	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
-	uint64_t file_reference  = 0;
-	int result               = 0;
+	libcerror_error_t *error  = NULL;
+	uint64_t file_reference   = 0;
+	int file_reference_is_set = 0;
+	int result                = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve file reference
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_file_reference(
 	          record,
 	          &file_reference,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	file_reference_is_set = result;
 
 	/* Test error cases
 	 */
@@ -787,42 +651,25 @@ int fusn_test_record_get_file_reference(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_file_reference(
-	          record,
-	          NULL,
-	          &error );
+	if( file_reference_is_set != 0 )
+	{
+		result = libfusn_record_get_file_reference(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -830,12 +677,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -844,68 +685,36 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_parent_file_reference(
-     void )
+     libfusn_record_t *record )
 {
-	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
-	uint64_t file_reference  = 0;
-	int result               = 0;
+	libcerror_error_t *error         = NULL;
+	uint64_t parent_file_reference   = 0;
+	int parent_file_reference_is_set = 0;
+	int result                       = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve parent file reference
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_parent_file_reference(
 	          record,
-	          &file_reference,
+	          &parent_file_reference,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	parent_file_reference_is_set = result;
 
 	/* Test error cases
 	 */
 	result = libfusn_record_get_parent_file_reference(
 	          NULL,
-	          &file_reference,
+	          &parent_file_reference,
 	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
@@ -920,42 +729,25 @@ int fusn_test_record_get_parent_file_reference(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_parent_file_reference(
-	          record,
-	          NULL,
-	          &error );
+	if( parent_file_reference_is_set != 0 )
+	{
+		result = libfusn_record_get_parent_file_reference(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -963,12 +755,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -977,62 +763,30 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_update_sequence_number(
-     void )
+     libfusn_record_t *record )
 {
-	libcerror_error_t *error        = NULL;
-	libfusn_record_t *record        = NULL;
-	uint64_t update_sequence_number = 0;
-	int result                      = 0;
+	libcerror_error_t *error          = NULL;
+	uint64_t update_sequence_number   = 0;
+	int result                        = 0;
+	int update_sequence_number_is_set = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve update sequence number
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_update_sequence_number(
 	          record,
 	          &update_sequence_number,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	update_sequence_number_is_set = result;
 
 	/* Test error cases
 	 */
@@ -1053,42 +807,25 @@ int fusn_test_record_get_update_sequence_number(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_update_sequence_number(
-	          record,
-	          NULL,
-	          &error );
+	if( update_sequence_number_is_set != 0 )
+	{
+		result = libfusn_record_get_update_sequence_number(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -1096,12 +833,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -1110,68 +841,36 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_update_reason_flags(
-     void )
+     libfusn_record_t *record )
 {
-	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
-	uint32_t flags           = 0;
-	int result               = 0;
+	libcerror_error_t *error       = NULL;
+	uint32_t update_reason_flags   = 0;
+	int result                     = 0;
+	int update_reason_flags_is_set = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve update reason flags
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_update_reason_flags(
 	          record,
-	          &flags,
+	          &update_reason_flags,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	update_reason_flags_is_set = result;
 
 	/* Test error cases
 	 */
 	result = libfusn_record_get_update_reason_flags(
 	          NULL,
-	          &flags,
+	          &update_reason_flags,
 	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
@@ -1186,42 +885,25 @@ int fusn_test_record_get_update_reason_flags(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_update_reason_flags(
-	          record,
-	          NULL,
-	          &error );
+	if( update_reason_flags_is_set != 0 )
+	{
+		result = libfusn_record_get_update_reason_flags(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -1229,12 +911,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -1243,68 +919,36 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_update_source_flags(
-     void )
+     libfusn_record_t *record )
 {
-	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
-	uint32_t flags           = 0;
-	int result               = 0;
+	libcerror_error_t *error       = NULL;
+	uint32_t update_source_flags   = 0;
+	int result                     = 0;
+	int update_source_flags_is_set = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve update source flags
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_update_source_flags(
 	          record,
-	          &flags,
+	          &update_source_flags,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	update_source_flags_is_set = result;
 
 	/* Test error cases
 	 */
 	result = libfusn_record_get_update_source_flags(
 	          NULL,
-	          &flags,
+	          &update_source_flags,
 	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
@@ -1319,42 +963,25 @@ int fusn_test_record_get_update_source_flags(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_update_source_flags(
-	          record,
-	          NULL,
-	          &error );
+	if( update_source_flags_is_set != 0 )
+	{
+		result = libfusn_record_get_update_source_flags(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -1362,12 +989,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -1376,68 +997,36 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_file_attribute_flags(
-     void )
+     libfusn_record_t *record )
 {
-	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
-	uint32_t flags           = 0;
-	int result               = 0;
+	libcerror_error_t *error        = NULL;
+	uint32_t file_attribute_flags   = 0;
+	int file_attribute_flags_is_set = 0;
+	int result                      = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve file attribute flags
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_file_attribute_flags(
 	          record,
-	          &flags,
+	          &file_attribute_flags,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	file_attribute_flags_is_set = result;
 
 	/* Test error cases
 	 */
 	result = libfusn_record_get_file_attribute_flags(
 	          NULL,
-	          &flags,
+	          &file_attribute_flags,
 	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
@@ -1452,42 +1041,25 @@ int fusn_test_record_get_file_attribute_flags(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_file_attribute_flags(
-	          record,
-	          NULL,
-	          &error );
+	if( file_attribute_flags_is_set != 0 )
+	{
+		result = libfusn_record_get_file_attribute_flags(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -1495,12 +1067,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -1509,68 +1075,36 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_utf8_name_size(
-     void )
+     libfusn_record_t *record )
 {
-	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
-	size_t utf8_string_size  = 0;
-	int result               = 0;
+	libcerror_error_t *error  = NULL;
+	size_t utf8_name_size     = 0;
+	int result                = 0;
+	int utf8_name_size_is_set = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve UTF-8 string size
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_utf8_name_size(
 	          record,
-	          &utf8_string_size,
+	          &utf8_name_size,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	utf8_name_size_is_set = result;
 
 	/* Test error cases
 	 */
 	result = libfusn_record_get_utf8_name_size(
 	          NULL,
-	          &utf8_string_size,
+	          &utf8_name_size,
 	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
@@ -1585,42 +1119,25 @@ int fusn_test_record_get_utf8_name_size(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_utf8_name_size(
-	          record,
-	          NULL,
-	          &error );
+	if( utf8_name_size_is_set != 0 )
+	{
+		result = libfusn_record_get_utf8_name_size(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -1628,12 +1145,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -1642,71 +1153,39 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_utf8_name(
-     void )
+     libfusn_record_t *record )
 {
-	uint8_t utf8_string[ 64 ];
+	uint8_t utf8_name[ 512 ];
 
 	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
 	int result               = 0;
+	int utf8_name_is_set     = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve UTF-8 string size
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_utf8_name(
 	          record,
-	          utf8_string,
-	          64,
+	          utf8_name,
+	          512,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	utf8_name_is_set = result;
 
 	/* Test error cases
 	 */
 	result = libfusn_record_get_utf8_name(
 	          NULL,
-	          utf8_string,
-	          64,
+	          utf8_name,
+	          512,
 	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
@@ -1721,45 +1200,62 @@ int fusn_test_record_get_utf8_name(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_utf8_name(
-	          record,
-	          NULL,
-	          64,
-	          &error );
+	if( utf8_name_is_set != 0 )
+	{
+		result = libfusn_record_get_utf8_name(
+		          record,
+		          NULL,
+		          512,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
+		libcerror_error_free(
+		 &error );
 
-/* TODO check string too small */
+		result = libfusn_record_get_utf8_name(
+		          record,
+		          utf8_name,
+		          0,
+		          &error );
 
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
+		libcerror_error_free(
+		 &error );
 
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
+		result = libfusn_record_get_utf8_name(
+		          record,
+		          utf8_name,
+		          (size_t) SSIZE_MAX + 1,
+		          &error );
 
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
+
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
+
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -1767,12 +1263,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -1781,68 +1271,36 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_utf16_name_size(
-     void )
+     libfusn_record_t *record )
 {
-	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
-	size_t utf16_string_size = 0;
-	int result               = 0;
+	libcerror_error_t *error   = NULL;
+	size_t utf16_name_size     = 0;
+	int result                 = 0;
+	int utf16_name_size_is_set = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve UTF-16 string size
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_utf16_name_size(
 	          record,
-	          &utf16_string_size,
+	          &utf16_name_size,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	utf16_name_size_is_set = result;
 
 	/* Test error cases
 	 */
 	result = libfusn_record_get_utf16_name_size(
 	          NULL,
-	          &utf16_string_size,
+	          &utf16_name_size,
 	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
@@ -1857,42 +1315,25 @@ int fusn_test_record_get_utf16_name_size(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_utf16_name_size(
-	          record,
-	          NULL,
-	          &error );
+	if( utf16_name_size_is_set != 0 )
+	{
+		result = libfusn_record_get_utf16_name_size(
+		          record,
+		          NULL,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
-
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -1900,12 +1341,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -1914,71 +1349,39 @@ on_error:
  * Returns 1 if successful or 0 if not
  */
 int fusn_test_record_get_utf16_name(
-     void )
+     libfusn_record_t *record )
 {
-	uint16_t utf16_string[ 64 ];
+	uint16_t utf16_name[ 512 ];
 
 	libcerror_error_t *error = NULL;
-	libfusn_record_t *record = NULL;
 	int result               = 0;
+	int utf16_name_is_set    = 0;
 
-	/* Initialize test
-	 */
-	result = libfusn_record_initialize(
-	          &record,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "record",
-	 record );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libfusn_record_copy_from_byte_stream(
-	          record,
-	          fusn_test_record_byte_stream,
-	          80,
-	          &error );
-
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test retrieve UTF-16 string size
+	/* Test regular cases
 	 */
 	result = libfusn_record_get_utf16_name(
 	          record,
-	          utf16_string,
-	          64,
+	          utf16_name,
+	          512,
 	          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
+	FUSN_TEST_ASSERT_NOT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 -1 );
 
 	FUSN_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	utf16_name_is_set = result;
 
 	/* Test error cases
 	 */
 	result = libfusn_record_get_utf16_name(
 	          NULL,
-	          utf16_string,
-	          64,
+	          utf16_name,
+	          512,
 	          &error );
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
@@ -1993,45 +1396,62 @@ int fusn_test_record_get_utf16_name(
 	libcerror_error_free(
 	 &error );
 
-	result = libfusn_record_get_utf16_name(
-	          record,
-	          NULL,
-	          64,
-	          &error );
+	if( utf16_name_is_set != 0 )
+	{
+		result = libfusn_record_get_utf16_name(
+		          record,
+		          NULL,
+		          512,
+		          &error );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	libcerror_error_free(
-	 &error );
+		libcerror_error_free(
+		 &error );
 
-/* TODO check string too small */
+		result = libfusn_record_get_utf16_name(
+		          record,
+		          utf16_name,
+		          0,
+		          &error );
 
-	/* Clean up
-	 */
-	result = libfusn_record_free(
-	          &record,
-	          NULL );
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
 
-	FUSN_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
 
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "record",
-	 record );
+		libcerror_error_free(
+		 &error );
 
-	FUSN_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
+		result = libfusn_record_get_utf16_name(
+		          record,
+		          utf16_name,
+		          (size_t) SSIZE_MAX + 1,
+		          &error );
 
+		FUSN_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 -1 );
+
+		FUSN_TEST_ASSERT_IS_NOT_NULL(
+		 "error",
+		 error );
+
+		libcerror_error_free(
+		 &error );
+	}
 	return( 1 );
 
 on_error:
@@ -2039,12 +1459,6 @@ on_error:
 	{
 		libcerror_error_free(
 		 &error );
-	}
-	if( record != NULL )
-	{
-		libfusn_record_free(
-		 &record,
-		 NULL );
 	}
 	return( 0 );
 }
@@ -2061,6 +1475,10 @@ int main(
      char * const argv[] FUSN_TEST_ATTRIBUTE_UNUSED )
 #endif
 {
+	libcerror_error_t *error = NULL;
+	libfusn_record_t *record = NULL;
+	int result               = 0;
+
 	FUSN_TEST_UNREFERENCED_PARAMETER( argc )
 	FUSN_TEST_UNREFERENCED_PARAMETER( argv )
 
@@ -2076,57 +1494,137 @@ int main(
 	 "libfusn_record_copy_from_byte_stream",
 	 fusn_test_record_copy_from_byte_stream );
 
-	FUSN_TEST_RUN(
+#if !defined( __BORLANDC__ ) || ( __BORLANDC__ >= 0x0560 )
+
+	/* Initialize record for tests
+	 */
+	result = libfusn_record_initialize(
+	          &record,
+	          &error );
+
+	FUSN_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "record",
+	 record );
+
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libfusn_record_copy_from_byte_stream(
+	          record,
+	          fusn_test_record_data1,
+	          80,
+	          &error );
+
+	FUSN_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_size",
-	 fusn_test_record_get_size );
+	 fusn_test_record_get_size,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_update_time",
-	 fusn_test_record_get_update_time );
+	 fusn_test_record_get_update_time,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_file_reference",
-	 fusn_test_record_get_file_reference );
+	 fusn_test_record_get_file_reference,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_parent_file_reference",
-	 fusn_test_record_get_parent_file_reference );
+	 fusn_test_record_get_parent_file_reference,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_update_sequence_number",
-	 fusn_test_record_get_update_sequence_number );
+	 fusn_test_record_get_update_sequence_number,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_update_reason_flags",
-	 fusn_test_record_get_update_reason_flags );
+	 fusn_test_record_get_update_reason_flags,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_update_source_flags",
-	 fusn_test_record_get_update_source_flags );
+	 fusn_test_record_get_update_source_flags,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_file_attribute_flags",
-	 fusn_test_record_get_file_attribute_flags );
+	 fusn_test_record_get_file_attribute_flags,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_utf8_name_size",
-	 fusn_test_record_get_utf8_name_size );
+	 fusn_test_record_get_utf8_name_size,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_utf8_name",
-	 fusn_test_record_get_utf8_name );
+	 fusn_test_record_get_utf8_name,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_utf16_name_size",
-	 fusn_test_record_get_utf16_name_size );
+	 fusn_test_record_get_utf16_name_size,
+	 record );
 
-	FUSN_TEST_RUN(
+	FUSN_TEST_RUN_WITH_ARGS(
 	 "libfusn_record_get_utf16_name",
-	 fusn_test_record_get_utf16_name );
+	 fusn_test_record_get_utf16_name,
+	 record );
+
+	/* Clean up
+	 */
+	result = libfusn_record_free(
+	          &record,
+	          NULL );
+
+	FUSN_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "record",
+	 record );
+
+	FUSN_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+#endif /* !defined( __BORLANDC__ ) || ( __BORLANDC__ >= 0x0560 ) */
 
 	return( EXIT_SUCCESS );
 
 on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( record != NULL )
+	{
+		libfusn_record_free(
+		 &record,
+		 NULL );
+	}
 	return( EXIT_FAILURE );
 }
 
