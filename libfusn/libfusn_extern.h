@@ -37,8 +37,11 @@
 
 #include <libfusn/extern.h>
 
+#define LIBFUSN_EXTERN_VARIABLE	LIBFUSN_EXTERN
+
 #else
-#define LIBFUSN_EXTERN	/* extern */
+#define LIBFUSN_EXTERN		/* extern */
+#define LIBFUSN_EXTERN_VARIABLE	extern
 
 #endif /* !defined( HAVE_LOCAL_LIBFUSN ) */
 
