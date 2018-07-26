@@ -163,13 +163,7 @@ int libfusn_record_copy_from_byte_stream(
 	uint16_t name_size                         = 0;
 
 #if defined( HAVE_DEBUG_OUTPUT )
-	system_character_t date_time_string[ 32 ];
-
-	system_character_t *value_string           = NULL;
-	libfdatetime_filetime_t *filetime          = NULL;
-	size_t value_string_size                   = 0;
 	uint32_t value_32bit                       = 0;
-	int result                                 = 0;
 #endif
 
 	if( record == NULL )
@@ -324,75 +318,20 @@ int libfusn_record_copy_from_byte_stream(
 		 function,
 		 internal_record->update_sequence_number );
 
-		if( libfdatetime_filetime_initialize(
-		     &filetime,
-		     error ) != 1 )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBCERROR_RUNTIME_ERROR_INITIALIZE_FAILED,
-			 "%s: unable to create filetime.",
-			 function );
-
-			goto on_error;
-		}
-		if( libfdatetime_filetime_copy_from_byte_stream(
-		     filetime,
+		if( libfusn_debug_print_filetime_value(
+		     function,
+		     "update time\t\t\t",
 		     ( (fusn_record_header_t *) byte_stream )->update_time,
 		     8,
 		     LIBFDATETIME_ENDIAN_LITTLE,
+		     LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to copy filetime from byte stream.",
-			 function );
-
-			goto on_error;
-		}
-#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
-		result = libfdatetime_filetime_copy_to_utf16_string(
-		          filetime,
-		          (uint16_t *) date_time_string,
-		          32,
-		          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
-		          error );
-#else
-		result = libfdatetime_filetime_copy_to_utf8_string(
-		          filetime,
-		          (uint8_t *) date_time_string,
-		          32,
-		          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
-		          error );
-#endif
-		if( result != 1 )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to copy filetime to date time string.",
-			 function );
-
-			goto on_error;
-		}
-		libcnotify_printf(
-		 "%s: update time\t\t\t: %" PRIs_SYSTEM " UTC\n",
-		 function,
-		 date_time_string );
-
-		if( libfdatetime_filetime_free(
-		     &filetime,
-		     error ) != 1 )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBCERROR_RUNTIME_ERROR_FINALIZE_FAILED,
-			 "%s: unable to free filetime.",
+			 LIBCERROR_RUNTIME_ERROR_PRINT_FAILED,
+			 "%s: unable to print FILETIME value.",
 			 function );
 
 			goto on_error;
@@ -468,48 +407,47 @@ int libfusn_record_copy_from_byte_stream(
 
 		goto on_error;
 	}
-	if( ( ( name_offset > 0 )
-	  &&  ( (size_t) name_offset < sizeof( fusn_record_header_t ) ) )
-	 || ( (size_t) name_offset > internal_record->size ) )
+	if( name_offset > 0 )
 	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: name offset value out of bounds.",
-		 function );
-
-		goto on_error;
-	}
-	if( ( (size_t) name_offset + (size_t) name_size ) > internal_record->size )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: name size value out of bounds.",
-		 function );
-
-		goto on_error;
-	}
-	if( (size_t) name_offset > byte_stream_offset )
-	{
-#if defined( HAVE_DEBUG_OUTPUT )
-		if( libcnotify_verbose != 0 )
+		if( ( (size_t) name_offset < sizeof( fusn_record_header_t ) )
+		 || ( (size_t) name_offset > internal_record->size ) )
 		{
-			libcnotify_printf(
-			 "%s: record header trailing data:\n",
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: name offset value out of bounds.",
 			 function );
-			libcnotify_print_data(
-			 &( byte_stream[ byte_stream_offset ] ),
-			 (size_t) name_offset - byte_stream_offset,
-			 0 );
+
+			goto on_error;
 		}
+		if( (size_t) name_size > ( internal_record->size - name_offset ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: name size value out of bounds.",
+			 function );
+
+			goto on_error;
+		}
+		if( (size_t) name_offset > byte_stream_offset )
+		{
+#if defined( HAVE_DEBUG_OUTPUT )
+			if( libcnotify_verbose != 0 )
+			{
+				libcnotify_printf(
+				 "%s: record header trailing data:\n",
+				 function );
+				libcnotify_print_data(
+				 &( byte_stream[ byte_stream_offset ] ),
+				 (size_t) name_offset - byte_stream_offset,
+				 0 );
+			}
 #endif
-		byte_stream_offset = (size_t) name_offset;
-	}
-	if( name_size > 0 )
-	{
+			byte_stream_offset = (size_t) name_offset;
+		}
 #if defined( HAVE_DEBUG_OUTPUT )
 		if( libcnotify_verbose != 0 )
 		{
@@ -555,83 +493,23 @@ int libfusn_record_copy_from_byte_stream(
 #if defined( HAVE_DEBUG_OUTPUT )
 		if( libcnotify_verbose != 0 )
 		{
-#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
-			result = libuna_utf16_string_size_from_utf16_stream(
-				  internal_record->name,
-				  internal_record->name_size,
-				  LIBUNA_ENDIAN_LITTLE,
-				  &value_string_size,
-				  error );
-#else
-			result = libuna_utf8_string_size_from_utf16_stream(
-				  internal_record->name,
-				  internal_record->name_size,
-				  LIBUNA_ENDIAN_LITTLE,
-				  &value_string_size,
-				  error );
-#endif
-			if( result != 1 )
+			if( libfusn_debug_print_utf16_string_value(
+			     function,
+			     "name\t\t\t\t\t",
+			     internal_record->name,
+			     internal_record->name_size,
+			     LIBUNA_ENDIAN_LITTLE,
+			     error ) != 1 )
 			{
 				libcerror_error_set(
 				 error,
 				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-				 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
-				 "%s: unable to determine size of name string.",
+				 LIBCERROR_RUNTIME_ERROR_PRINT_FAILED,
+				 "%s: unable to print UTF-16 string value.",
 				 function );
 
-				goto on_error;
+				return( -1 );
 			}
-			value_string = system_string_allocate(
-			                value_string_size );
-
-			if( value_string == NULL )
-			{
-				libcerror_error_set(
-				 error,
-				 LIBCERROR_ERROR_DOMAIN_MEMORY,
-				 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
-				 "%s: unable to create name string.",
-				 function );
-
-				goto on_error;
-			}
-#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
-			result = libuna_utf16_string_copy_from_utf16_stream(
-				  (libuna_utf16_character_t *) value_string,
-				  value_string_size,
-				  internal_record->name,
-				  internal_record->name_size,
-				  LIBUNA_ENDIAN_LITTLE,
-				  error );
-#else
-			result = libuna_utf8_string_copy_from_utf16_stream(
-				  (libuna_utf8_character_t *) value_string,
-				  value_string_size,
-				  internal_record->name,
-				  internal_record->name_size,
-				  LIBUNA_ENDIAN_LITTLE,
-				  error );
-#endif
-			if( result != 1 )
-			{
-				libcerror_error_set(
-				 error,
-				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-				 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-				 "%s: unable to set name string.",
-				 function );
-
-				goto on_error;
-			}
-			libcnotify_printf(
-			 "%s: name\t\t\t\t: %" PRIs_SYSTEM "\n",
-			 function,
-			 value_string );
-
-			memory_free(
-			 value_string );
-
-			value_string = NULL;
 		}
 #endif
 		byte_stream_offset += (size_t) name_size;
@@ -659,19 +537,6 @@ int libfusn_record_copy_from_byte_stream(
 	return( 1 );
 
 on_error:
-#if defined( HAVE_DEBUG_OUTPUT )
-	if( value_string != NULL )
-	{
-		memory_free(
-		 value_string );
-	}
-	if( filetime != NULL )
-	{
-		libfdatetime_filetime_free(
-		 &filetime,
-		 NULL );
-	}
-#endif
 	if( internal_record->name != NULL )
 	{
 		memory_free(
@@ -692,8 +557,8 @@ int libfusn_record_get_size(
      uint32_t *size,
      libcerror_error_t **error )
 {
-	libfusn_internal_record_t *internal_record  = NULL;
-	static char *function                       = "libfusn_record_get_size";
+	libfusn_internal_record_t *internal_record = NULL;
+	static char *function                      = "libfusn_record_get_size";
 
 	if( record == NULL )
 	{
@@ -732,8 +597,8 @@ int libfusn_record_get_update_time(
      uint64_t *update_time,
      libcerror_error_t **error )
 {
-	libfusn_internal_record_t *internal_record  = NULL;
-	static char *function                       = "libfusn_record_get_update_time";
+	libfusn_internal_record_t *internal_record = NULL;
+	static char *function                      = "libfusn_record_get_update_time";
 
 	if( record == NULL )
 	{
@@ -772,8 +637,8 @@ int libfusn_record_get_file_reference(
      uint64_t *file_reference,
      libcerror_error_t **error )
 {
-	libfusn_internal_record_t *internal_record  = NULL;
-	static char *function                       = "libfusn_record_get_file_reference";
+	libfusn_internal_record_t *internal_record = NULL;
+	static char *function                      = "libfusn_record_get_file_reference";
 
 	if( record == NULL )
 	{
@@ -812,8 +677,8 @@ int libfusn_record_get_parent_file_reference(
      uint64_t *parent_file_reference,
      libcerror_error_t **error )
 {
-	libfusn_internal_record_t *internal_record  = NULL;
-	static char *function                       = "libfusn_record_get_parent_file_reference";
+	libfusn_internal_record_t *internal_record = NULL;
+	static char *function                      = "libfusn_record_get_parent_file_reference";
 
 	if( record == NULL )
 	{
@@ -852,8 +717,8 @@ int libfusn_record_get_update_sequence_number(
      uint64_t *update_sequence_number,
      libcerror_error_t **error )
 {
-	libfusn_internal_record_t *internal_record  = NULL;
-	static char *function                       = "libfusn_record_get_update_sequence_number";
+	libfusn_internal_record_t *internal_record = NULL;
+	static char *function                      = "libfusn_record_get_update_sequence_number";
 
 	if( record == NULL )
 	{
@@ -892,8 +757,8 @@ int libfusn_record_get_update_reason_flags(
      uint32_t *update_reason_flags,
      libcerror_error_t **error )
 {
-	libfusn_internal_record_t *internal_record  = NULL;
-	static char *function                       = "libfusn_record_get_update_reason_flags";
+	libfusn_internal_record_t *internal_record = NULL;
+	static char *function                      = "libfusn_record_get_update_reason_flags";
 
 	if( record == NULL )
 	{
@@ -932,8 +797,8 @@ int libfusn_record_get_update_source_flags(
      uint32_t *update_source_flags,
      libcerror_error_t **error )
 {
-	libfusn_internal_record_t *internal_record  = NULL;
-	static char *function                       = "libfusn_record_get_update_source_flags";
+	libfusn_internal_record_t *internal_record = NULL;
+	static char *function                      = "libfusn_record_get_update_source_flags";
 
 	if( record == NULL )
 	{
@@ -972,8 +837,8 @@ int libfusn_record_get_file_attribute_flags(
      uint32_t *file_attribute_flags,
      libcerror_error_t **error )
 {
-	libfusn_internal_record_t *internal_record  = NULL;
-	static char *function                       = "libfusn_record_get_file_attribute_flags";
+	libfusn_internal_record_t *internal_record = NULL;
+	static char *function                      = "libfusn_record_get_file_attribute_flags";
 
 	if( record == NULL )
 	{
