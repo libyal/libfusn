@@ -1385,6 +1385,29 @@ int fusn_test_record_get_utf8_name_size(
 	libcerror_error_free(
 	 &error );
 
+	name = ( (libfusn_internal_record_t *) record )->name;
+
+	( (libfusn_internal_record_t *) record )->name = NULL;
+
+	result = libfusn_record_get_utf8_name_size(
+	          record,
+	          NULL,
+	          &error );
+
+	( (libfusn_internal_record_t *) record )->name = name;
+
+	FUSN_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
 	result = libfusn_record_get_utf8_name_size(
 	          record,
 	          NULL,
@@ -1627,6 +1650,29 @@ int fusn_test_record_get_utf16_name_size(
 	          NULL,
 	          &utf16_name_size,
 	          &error );
+
+	FUSN_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FUSN_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	name = ( (libfusn_internal_record_t *) record )->name;
+
+	( (libfusn_internal_record_t *) record )->name = NULL;
+
+	result = libfusn_record_get_utf16_name_size(
+	          record,
+	          NULL,
+	          &error );
+
+	( (libfusn_internal_record_t *) record )->name = name;
 
 	FUSN_TEST_ASSERT_EQUAL_INT(
 	 "result",
