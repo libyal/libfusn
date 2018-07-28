@@ -28,13 +28,6 @@
  */
 #if !defined( HAVE_LOCAL_LIBFUSN )
 
-/* If libtool DLL support is enabled set LIBFUSN_DLL_EXPORT
- * before including libfusn/extern.h
- */
-#if defined( _WIN32 ) && defined( DLL_EXPORT )
-#define LIBFUSN_DLL_EXPORT
-#endif
-
 #include <libfusn/extern.h>
 
 #define LIBFUSN_EXTERN_VARIABLE	LIBFUSN_EXTERN
