@@ -1,4 +1,4 @@
-dnl Checks for libfusn for required headers and functions
+dnl Checks for required headers and functions
 dnl
 dnl Version: 20180725
 
