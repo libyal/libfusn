@@ -9,6 +9,8 @@ Homepage: https://github.com/libyal/libfusn
 Package: libfusn
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libfusn1
+Replaces: libfusn1
 Suggests: libfusn-dbg
 Description: Library to access the Update Sequence Number (USN) Journal format
  libfusn is a library to access the Update Sequence Number (USN) Journal format.
