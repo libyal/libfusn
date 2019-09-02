@@ -1,4 +1,4 @@
-.Dd April  4, 2019
+.Dd September  2, 2019
 .Dt libfusn 3
 .Os libfusn
 .Sh NAME
@@ -47,13 +47,13 @@ Record functions
 .Ft int
 .Fn libfusn_record_get_file_attribute_flags "libfusn_record_t *record" "uint32_t *file_attribute_flags" "libfusn_error_t **error"
 .Ft int
-.Fn libfusn_record_get_utf8_name_size "libfusn_record_t *record" "size_t *utf8_name_size" "libfusn_error_t **error"
+.Fn libfusn_record_get_utf8_name_size "libfusn_record_t *record" "size_t *utf8_string_size" "libfusn_error_t **error"
 .Ft int
-.Fn libfusn_record_get_utf8_name "libfusn_record_t *record" "uint8_t *utf8_name" "size_t utf8_name_size" "libfusn_error_t **error"
+.Fn libfusn_record_get_utf8_name "libfusn_record_t *record" "uint8_t *utf8_string" "size_t utf8_string_size" "libfusn_error_t **error"
 .Ft int
-.Fn libfusn_record_get_utf16_name_size "libfusn_record_t *record" "size_t *utf16_name_size" "libfusn_error_t **error"
+.Fn libfusn_record_get_utf16_name_size "libfusn_record_t *record" "size_t *utf16_string_size" "libfusn_error_t **error"
 .Ft int
-.Fn libfusn_record_get_utf16_name "libfusn_record_t *record" "uint16_t *utf16_name" "size_t utf16_name_size" "libfusn_error_t **error"
+.Fn libfusn_record_get_utf16_name "libfusn_record_t *record" "uint16_t *utf16_string" "size_t utf16_string_size" "libfusn_error_t **error"
 .Sh DESCRIPTION
 The
 .Fn libfusn_get_version

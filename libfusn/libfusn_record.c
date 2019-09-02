@@ -875,7 +875,7 @@ int libfusn_record_get_file_attribute_flags(
  */
 int libfusn_record_get_utf8_name_size(
      libfusn_record_t *record,
-     size_t *utf8_name_size,
+     size_t *utf8_string_size,
      libcerror_error_t **error )
 {
 	libfusn_internal_record_t *internal_record = NULL;
@@ -897,18 +897,18 @@ int libfusn_record_get_utf8_name_size(
 	if( ( internal_record->name == NULL )
 	 || ( internal_record->name_size == 0 ) )
 	{
-		if( utf8_name_size == NULL )
+		if( utf8_string_size == NULL )
 		{
 			libcerror_error_set(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-8 name size.",
+			 "%s: invalid UTF-8 string size.",
 			 function );
 
 			return( -1 );
 		}
-		*utf8_name_size = 0;
+		*utf8_string_size = 0;
 	}
 	else
 	{
@@ -916,7 +916,7 @@ int libfusn_record_get_utf8_name_size(
 		     internal_record->name,
 		     (size_t) internal_record->name_size,
 		     LIBUNA_ENDIAN_LITTLE,
-		     utf8_name_size,
+		     utf8_string_size,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -938,8 +938,8 @@ int libfusn_record_get_utf8_name_size(
  */
 int libfusn_record_get_utf8_name(
      libfusn_record_t *record,
-     uint8_t *utf8_name,
-     size_t utf8_name_size,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
      libcerror_error_t **error )
 {
 	libfusn_internal_record_t *internal_record = NULL;
@@ -970,8 +970,8 @@ int libfusn_record_get_utf8_name(
 		return( -1 );
 	}
 	if( libuna_utf8_string_copy_from_utf16_stream(
-	     utf8_name,
-	     utf8_name_size,
+	     utf8_string,
+	     utf8_string_size,
 	     internal_record->name,
 	     (size_t) internal_record->name_size,
 	     LIBUNA_ENDIAN_LITTLE,
@@ -995,7 +995,7 @@ int libfusn_record_get_utf8_name(
  */
 int libfusn_record_get_utf16_name_size(
      libfusn_record_t *record,
-     size_t *utf16_name_size,
+     size_t *utf16_string_size,
      libcerror_error_t **error )
 {
 	libfusn_internal_record_t *internal_record = NULL;
@@ -1017,18 +1017,18 @@ int libfusn_record_get_utf16_name_size(
 	if( ( internal_record->name == NULL )
 	 || ( internal_record->name_size == 0 ) )
 	{
-		if( utf16_name_size == NULL )
+		if( utf16_string_size == NULL )
 		{
 			libcerror_error_set(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-16 name size.",
+			 "%s: invalid UTF-16 string size.",
 			 function );
 
 			return( -1 );
 		}
-		*utf16_name_size = 0;
+		*utf16_string_size = 0;
 	}
 	else
 	{
@@ -1036,7 +1036,7 @@ int libfusn_record_get_utf16_name_size(
 		     internal_record->name,
 		     (size_t) internal_record->name_size,
 		     LIBUNA_ENDIAN_LITTLE,
-		     utf16_name_size,
+		     utf16_string_size,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -1058,8 +1058,8 @@ int libfusn_record_get_utf16_name_size(
  */
 int libfusn_record_get_utf16_name(
      libfusn_record_t *record,
-     uint16_t *utf16_name,
-     size_t utf16_name_size,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
      libcerror_error_t **error )
 {
 	libfusn_internal_record_t *internal_record = NULL;
@@ -1090,8 +1090,8 @@ int libfusn_record_get_utf16_name(
 		return( -1 );
 	}
 	if( libuna_utf16_string_copy_from_utf16_stream(
-	     utf16_name,
-	     utf16_name_size,
+	     utf16_string,
+	     utf16_string_size,
 	     internal_record->name,
 	     (size_t) internal_record->name_size,
 	     LIBUNA_ENDIAN_LITTLE,

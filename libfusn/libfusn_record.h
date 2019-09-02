@@ -154,27 +154,27 @@ int libfusn_record_get_file_attribute_flags(
 LIBFUSN_EXTERN \
 int libfusn_record_get_utf8_name_size(
      libfusn_record_t *record,
-     size_t *utf8_name_size,
+     size_t *utf8_string_size,
      libcerror_error_t **error );
 
 LIBFUSN_EXTERN \
 int libfusn_record_get_utf8_name(
      libfusn_record_t *record,
-     uint8_t *utf8_name,
-     size_t utf8_name_size,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
      libcerror_error_t **error );
 
 LIBFUSN_EXTERN \
 int libfusn_record_get_utf16_name_size(
      libfusn_record_t *record,
-     size_t *utf16_name_size,
+     size_t *utf16_string_size,
      libcerror_error_t **error );
 
 LIBFUSN_EXTERN \
 int libfusn_record_get_utf16_name(
      libfusn_record_t *record,
-     uint16_t *utf16_name,
-     size_t utf16_name_size,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
      libcerror_error_t **error );
 
 #if defined( __cplusplus )
