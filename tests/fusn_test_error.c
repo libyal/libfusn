@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #endif
 
-#include "fusn_test_libcerror.h"
 #include "fusn_test_libfusn.h"
 #include "fusn_test_macros.h"
 #include "fusn_test_unused.h"
