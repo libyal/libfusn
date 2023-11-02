@@ -42,11 +42,13 @@ MAINTAINERCLEANFILES = \
 	Makefile.in
 
 distclean: clean
-	/bin/rm -f libfusn_definitions.h
-	/bin/rm -f libfusn.rc
-	/bin/rm -f Makefile
+	-rm -f libfusn_definitions.h
+	-rm -f libfusn.rc
+	-rm -f Makefile
 
-splint:
+sources-local: $(BUILT_SOURCES)
+
+splint-local:
 	@echo "Running splint on libfusn ..."
 	-splint -preproc -redef $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(libfusn_la_SOURCES)
 
