@@ -1,6 +1,6 @@
 AM_CPPFLAGS = \
-	-I$(top_srcdir)/include \
-	-I$(top_srcdir)/common \
+	-I../include -I$(top_srcdir)/include \
+	-I../common -I$(top_srcdir)/common \
 	@LIBCERROR_CPPFLAGS@ \
 	@LIBCNOTIFY_CPPFLAGS@ \
 	@LIBUNA_CPPFLAGS@ \
@@ -38,13 +38,11 @@ EXTRA_DIST = \
 	libfusn.rc \
 	libfusn.rc.in
 
-MAINTAINERCLEANFILES = \
+DISTCLEANFILES = \
+	libfusn_definitions.h \
+	libfusn.rc \
+	Makefile \
 	Makefile.in
-
-distclean: clean
-	-rm -f libfusn_definitions.h
-	-rm -f libfusn.rc
-	-rm -f Makefile
 
 sources-local: $(BUILT_SOURCES)
 

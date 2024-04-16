@@ -15,13 +15,11 @@ EXTRA_DIST = \
 	libfusn/features.h.in \
 	libfusn/types.h.in
 
-MAINTAINERCLEANFILES = \
+DISTCLEANFILES = \
+	libfusn.h \
+	libfusn/definitions.h \
+	libfusn/features.h \
+	libfusn/types.h \
+	Makefile \
 	Makefile.in
-
-distclean: clean
-	-rm -f libfusn.h
-	-rm -f libfusn/definitions.h
-	-rm -f libfusn/features.h
-	-rm -f libfusn/types.h
-	-rm -f Makefile
 
