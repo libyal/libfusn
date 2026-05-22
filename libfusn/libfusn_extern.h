@@ -30,12 +30,6 @@
 
 #include <libfusn/extern.h>
 
-#if defined( __CYGWIN__ ) || defined( __MINGW32__ )
-#define LIBFUSN_EXTERN_VARIABLE	extern
-#else
-#define LIBFUSN_EXTERN_VARIABLE	LIBFUSN_EXTERN
-#endif
-
 #else
 #define LIBFUSN_EXTERN		/* extern */
 #define LIBFUSN_EXTERN_VARIABLE	extern
