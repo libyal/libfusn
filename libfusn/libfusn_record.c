@@ -381,7 +381,8 @@ int libfusn_record_copy_from_byte_stream(
 		 function,
 		 name_offset );
 	}
-#endif
+#endif /* defined( HAVE_DEBUG_OUTPUT ) */
+
 	byte_stream_offset = sizeof( fusn_record_header_t );
 
 	if( internal_record->major_version != 2 )
@@ -444,9 +445,10 @@ int libfusn_record_copy_from_byte_stream(
 				 &( byte_stream[ byte_stream_offset ] ),
 				 (size_t) name_offset - byte_stream_offset,
 				 0 );
+
+				byte_stream_offset = (size_t) name_offset;
 			}
 #endif
-			byte_stream_offset = (size_t) name_offset;
 		}
 #if defined( HAVE_DEBUG_OUTPUT )
 		if( libcnotify_verbose != 0 )
@@ -510,9 +512,9 @@ int libfusn_record_copy_from_byte_stream(
 
 				return( -1 );
 			}
+			byte_stream_offset += (size_t) name_size;
 		}
 #endif
-		byte_stream_offset += (size_t) name_size;
 	}
 #if defined( HAVE_DEBUG_OUTPUT )
 	if( libcnotify_verbose != 0 )
