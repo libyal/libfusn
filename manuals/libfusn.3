@@ -1,6 +1,6 @@
-.Dd September  2, 2019
-.Dt libfusn 3
-.Os libfusn
+.Dd June 11, 2026
+.Dt LIBFUSN 3
+.Os
 .Sh NAME
 .Nm libfusn.h
 .Nd Library to access the Update Sequence Number (USN) Journal format
@@ -8,71 +8,196 @@
 .In libfusn.h
 .Pp
 Support functions
+.nf
 .Ft const char *
-.Fn libfusn_get_version "void"
+.Fo libfusn_get_version
+.Fa "void"
+.Fc
+.fi
 .Pp
 Error functions
+.nf
 .Ft void
-.Fn libfusn_error_free "libfusn_error_t **error"
+.Fo libfusn_error_free
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_error_fprint "libfusn_error_t *error" "FILE *stream"
+.Fo libfusn_error_fprint
+.Fa "libfusn_error_t *error"
+.Fa "FILE *stream"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_error_sprint "libfusn_error_t *error" "char *string" "size_t size"
+.Fo libfusn_error_sprint
+.Fa "libfusn_error_t *error"
+.Fa "char *string"
+.Fa "size_t size"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_error_backtrace_fprint "libfusn_error_t *error" "FILE *stream"
+.Fo libfusn_error_backtrace_fprint
+.Fa "libfusn_error_t *error"
+.Fa "FILE *stream"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_error_backtrace_sprint "libfusn_error_t *error" "char *string" "size_t size"
+.Fo libfusn_error_backtrace_sprint
+.Fa "libfusn_error_t *error"
+.Fa "char *string"
+.Fa "size_t size"
+.Fc
+.fi
 .Pp
 Record functions
+.nf
 .Ft int
-.Fn libfusn_record_initialize "libfusn_record_t **usn_record" "libfusn_error_t **error"
+.Fo libfusn_record_initialize
+.Fa "libfusn_record_t **usn_record"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_free "libfusn_record_t **usn_record" "libfusn_error_t **error"
+.Fo libfusn_record_free
+.Fa "libfusn_record_t **usn_record"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_copy_from_byte_stream "libfusn_record_t *usn_record" "const uint8_t *byte_stream" "size_t byte_stream_size" "libfusn_error_t **error"
+.Fo libfusn_record_copy_from_byte_stream
+.Fa "libfusn_record_t *usn_record"
+.Fa "const uint8_t *byte_stream"
+.Fa "size_t byte_stream_size"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_size "libfusn_record_t *usn_record" "uint32_t *size" "libfusn_error_t **error"
+.Fo libfusn_record_get_size
+.Fa "libfusn_record_t *usn_record"
+.Fa "uint32_t *size"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_update_time "libfusn_record_t *record" "uint64_t *update_time" "libfusn_error_t **error"
+.Fo libfusn_record_get_update_time
+.Fa "libfusn_record_t *record"
+.Fa "uint64_t *update_time"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_file_reference "libfusn_record_t *record" "uint64_t *file_reference" "libfusn_error_t **error"
+.Fo libfusn_record_get_file_reference
+.Fa "libfusn_record_t *record"
+.Fa "uint64_t *file_reference"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_parent_file_reference "libfusn_record_t *record" "uint64_t *parent_file_reference" "libfusn_error_t **error"
+.Fo libfusn_record_get_parent_file_reference
+.Fa "libfusn_record_t *record"
+.Fa "uint64_t *parent_file_reference"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_update_sequence_number "libfusn_record_t *record" "uint64_t *update_sequence_number" "libfusn_error_t **error"
+.Fo libfusn_record_get_update_sequence_number
+.Fa "libfusn_record_t *record"
+.Fa "uint64_t *update_sequence_number"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_update_reason_flags "libfusn_record_t *record" "uint32_t *update_reason_flags" "libfusn_error_t **error"
+.Fo libfusn_record_get_update_reason_flags
+.Fa "libfusn_record_t *record"
+.Fa "uint32_t *update_reason_flags"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_update_source_flags "libfusn_record_t *record" "uint32_t *update_source_flags" "libfusn_error_t **error"
+.Fo libfusn_record_get_update_source_flags
+.Fa "libfusn_record_t *record"
+.Fa "uint32_t *update_source_flags"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_file_attribute_flags "libfusn_record_t *record" "uint32_t *file_attribute_flags" "libfusn_error_t **error"
+.Fo libfusn_record_get_file_attribute_flags
+.Fa "libfusn_record_t *record"
+.Fa "uint32_t *file_attribute_flags"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_utf8_name_size "libfusn_record_t *record" "size_t *utf8_string_size" "libfusn_error_t **error"
+.Fo libfusn_record_get_utf8_name_size
+.Fa "libfusn_record_t *record"
+.Fa "size_t *utf8_string_size"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_utf8_name "libfusn_record_t *record" "uint8_t *utf8_string" "size_t utf8_string_size" "libfusn_error_t **error"
+.Fo libfusn_record_get_utf8_name
+.Fa "libfusn_record_t *record"
+.Fa "uint8_t *utf8_string"
+.Fa "size_t utf8_string_size"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_utf16_name_size "libfusn_record_t *record" "size_t *utf16_string_size" "libfusn_error_t **error"
+.Fo libfusn_record_get_utf16_name_size
+.Fa "libfusn_record_t *record"
+.Fa "size_t *utf16_string_size"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
+.nf
 .Ft int
-.Fn libfusn_record_get_utf16_name "libfusn_record_t *record" "uint16_t *utf16_string" "size_t utf16_string_size" "libfusn_error_t **error"
+.Fo libfusn_record_get_utf16_name
+.Fa "libfusn_record_t *record"
+.Fa "uint16_t *utf16_string"
+.Fa "size_t utf16_string_size"
+.Fa "libfusn_error_t **error"
+.Fc
+.fi
 .Sh DESCRIPTION
 The
 .Fn libfusn_get_version
 function is used to retrieve the library version.
 .Sh RETURN VALUES
-Most of the functions return NULL or \-1 on error, dependent on the return type.
-For the actual return values see "libfusn.h".
+Most of the functions return NULL or \-1 on error, dependent on the return \
+type.
+For the actual return values see
+.In libfusn.h .
 .Sh ENVIRONMENT
 None
 .Sh FILES
 None
+.Sh SEE ALSO
+.In libfusn.h
+.Sh AUTHORS
+.An Joachim Metz <joachim.metz@gmail.com>
 .Sh BUGS
-Please report bugs of any kind on the project issue tracker: https://github.com/libyal/libfusn/issues
-.Sh AUTHOR
-These man pages are generated from "libfusn.h".
+Please report bugs of any kind on the project issue tracker: \
+https://github.com/libyal/libfusn/issues
 .Sh COPYRIGHT
 Copyright (C) 2011-2026, Joachim Metz <joachim.metz@gmail.com>.
 .sp
 This is free software; see the source for copying conditions.
-There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-.Sh SEE ALSO
-the libfusn.h include file
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A \
+PARTICULAR PURPOSE.

@@ -24,6 +24,19 @@
 
 #include <common.h>
 
+#if !defined( __CYGWIN__ ) && !defined( _WIN32 ) && defined( __has_attribute )
+#if __has_attribute( visibility )
+#define LIBFUSN_INTERNAL	__attribute__((visibility("hidden"))) extern
+
+#else
+#define LIBFUSN_INTERNAL	extern
+
+#endif /* __has_attribute( visibility ) */
+#else
+#define LIBFUSN_INTERNAL	extern
+
+#endif /* !defined( __CYGWIN__ ) && !defined( _WIN32 ) && defined( __has_attribute ) */
+
 /* Define HAVE_LOCAL_LIBFUSN for local use of libfusn
  */
 #if !defined( HAVE_LOCAL_LIBFUSN )
@@ -32,7 +45,7 @@
 
 #else
 #define LIBFUSN_EXTERN		/* extern */
-#define LIBFUSN_EXTERN_VARIABLE	extern
+#define LIBFUSN_EXTERN_VARIABLE	LIBFUSN_INTERNAL
 
 #endif /* !defined( HAVE_LOCAL_LIBFUSN ) */
 
