@@ -2,7 +2,7 @@ man_MANS = \
 	libfusn.3
 
 EXTRA_DIST = \
-	libfusn.3
+	$(man_MANS)
 
 DISTCLEANFILES = \
 	Makefile \
