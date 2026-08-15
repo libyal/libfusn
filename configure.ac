@@ -2,7 +2,7 @@ AC_PREREQ([2.71])
 
 AC_INIT(
   [libfusn],
-  [20260624],
+  [20260815],
   [https://github.com/libyal/libfusn/issues])
 
 AC_CONFIG_SRCDIR(
